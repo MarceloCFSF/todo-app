@@ -9,11 +9,13 @@
               <div class="d-flex flex-column">
               <v-text-field 
                 label="Email"
+                name="email"
                 v-model="email.value.value"
                 :error-messages="email.errorMessage.value"
               />
               <v-text-field
                 label="Senha"
+                name="password"
                 v-model="password.value.value"
                 :error-messages="password.errorMessage.value"
                 type="password"
@@ -58,11 +60,7 @@ import type { LoginData } from "@/services/auth.service";
   const password = useField<string>('password');
 
   const submit = handleSubmit(async values => {
-    const response = await useAuthStore().login({
-      email: values.email,
-      password: values.password
-    })
-    
+    const response = await useAuthStore().login(values);
     if (response) router.push('/');
   })
 </script>
