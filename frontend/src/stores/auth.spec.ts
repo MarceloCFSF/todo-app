@@ -31,7 +31,7 @@ describe('Auth Store', () => {
       password: "12345678"
     })
 
-    expect(auth.token).to.not.be.empty
+    expect(auth.token).toBe('token')
     expect(auth.tokenType).toBe('Bearer')
   })
 
