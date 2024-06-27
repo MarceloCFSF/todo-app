@@ -14,5 +14,9 @@ export const authService = {
   async login(data: LoginData) : Promise<LoginResponse> {
     const response = await api.post<LoginResponse>('/login', data);
     return response.data;
+  },
+
+  async logout() : Promise<void> {
+    await api.post('/logout');
   }
 }

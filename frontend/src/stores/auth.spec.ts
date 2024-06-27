@@ -52,4 +52,29 @@ describe('Auth Store', () => {
     expect(auth.token).to.be.empty
     expect(auth.tokenType).to.be.empty
   })
+
+  it('should logout', async () => {
+    vi.mocked(authService.login)
+      .mockReturnValue(Promise.resolve({
+        access_token: "token", token_type: "Bearer"
+      }))
+
+    vi.mocked(authService.logout)
+      .mockReturnValue(Promise.resolve())
+
+    const auth = useAuthStore()
+
+    await auth.login({
+      email: 'user@example.com',
+      password: "12345678"
+    })
+
+    expect(auth.token).to.not.be.empty
+    expect(auth.tokenType).to.not.be.empty
+
+    await auth.logout()
+
+    expect(auth.token).to.be.empty
+    expect(auth.tokenType).to.be.empty
+  })
 })

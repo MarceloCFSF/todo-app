@@ -1,5 +1,7 @@
 import { authService, type LoginData } from "@/services/auth.service";
 import { defineStore } from "pinia";
+import router from "@/router";
+import routeNames from "@/router/routeNames";
 
 interface AuthState {
   token: string,
@@ -21,5 +23,15 @@ export const useAuthStore = defineStore('auth', {
         return false;
       }
     },
+    async logout(alreadyLogout: boolean = false) : Promise<void> {
+      try {
+        if (!alreadyLogout) await authService.logout();
+        this.token = '';
+        this.tokenType = '';
+        router.push({ name: routeNames.login });
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 })

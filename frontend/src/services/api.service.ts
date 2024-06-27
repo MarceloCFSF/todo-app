@@ -1,4 +1,3 @@
-import router from "@/router";
 import { useAuthStore } from "@/stores/auth";
 import axios from "axios";
 
@@ -27,7 +26,7 @@ api.interceptors.response.use(
   },
   error => {
     if (error.response && error.response.status === 401) {
-      router.push('/login');
+      useAuthStore().logout(true);
     }
     return Promise.reject(error);
   }
